@@ -5,10 +5,9 @@
     "build": "next build",
     "start": "next start",
     "test:cypress": "cypress run",
-    "test:integration": "yarn build && yarn test:integration:start:debug",
-    "test:integration:start:debug": "cross-env DEBUG=\"start-server-and-test\" yarn test:integration:start:setVars",
-    "test:integration:start:setVars": "cross-env-shell START_SERVER_AND_TEST_INSECURE=0 PORT=3333 NEXT_PUBLIC_API_MOCKING=enabled APP_ENV=test NODE_ENV=production yarn test:integration:start",
-    "test:integration:start": "cross-env-shell start-server-and-test start http-get://localhost:3333 test:cypress"
+    "test:integration": "yarn build && yarn test:integration:start:setVars",
+    "test:integration:start:setVars": "cross-env-shell START_SERVER_AND_TEST_INSECURE=0 PORT=3333 APP_ENV=test NODE_ENV=production yarn test:integration:start",
+    "test:integration:start": "cross-env-shell concurrently \"yarn start\" \"wait-on -v http-get://localhost:3333 && yarn test:cypress\""
   },
   "dependencies": {
     "cross-env": "^7.0.3",
@@ -19,7 +18,9 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.37",
+    "concurrently": "^6.4.0",
     "start-server-and-test": "^1.14.0",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "wait-on": "^6.0.0"
   }
 }
