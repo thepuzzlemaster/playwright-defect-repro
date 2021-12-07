@@ -3,19 +3,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "test:cypress": "cypress run",
-    "test:integration": "yarn build && yarn test:integration:start:debug",
-    "test:integration:start:debug": "cross-env DEBUG=\"start-server-and-test\" yarn test:integration:start:setVars",
-    "test:integration:start:setVars": "cross-env-shell START_SERVER_AND_TEST_INSECURE=0 PORT=3333 NEXT_PUBLIC_API_MOCKING=enabled APP_ENV=test NODE_ENV=production yarn test:integration:start",
-    "test:integration:start": "cross-env-shell start-server-and-test start http-get://localhost:3333 test:cypress"
+    "start": "next start"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
     "cypress": "^9.1.1",
     "next": "latest",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "mocks": "link:./__mocks__",
+    "services": "link:./services"
   },
   "devDependencies": {
     "@types/react": "^17.0.37",
